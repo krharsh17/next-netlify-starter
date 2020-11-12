@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Header from '@components/Header'
 import Footer from '@components/Footer'
 
-export default function Home() {
+function Home({SSRText}) {
   return (
     <div className="container">
       <Head>
@@ -11,7 +11,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <Header title="Welcome to my app!" />
+        <Header title={"Welcome to my app! Here's some SSR: " + SSRText} />
         <p className="description">
           Get started by editing <code>pages/index.js</code>
         </p>
@@ -21,3 +21,11 @@ export default function Home() {
     </div>
   )
 }
+
+Home.getInitialProps = async context => {
+  return {
+    SSRText: "This is server-side rendered at " + Date.now()
+  }
+}
+
+export default Home
